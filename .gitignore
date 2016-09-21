@@ -1,0 +1,7 @@
+CMakeCache.txt
+CMakeFiles/*
+Makefile
+CMakeFiles
+
+# Keep empty directories:
+# Keep empty directories: >> .gitignore/.git*
