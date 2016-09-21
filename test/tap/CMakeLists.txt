@@ -1,0 +1,2 @@
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/unittest/tap)
+ADD_LIBRARY(tap tap.c)
