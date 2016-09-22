@@ -93,11 +93,11 @@ static MA_HASH_TYPE ma_crypt_hash_hashtype(unsigned int hash_type)
 #endif
 }
 
-static MA_HASH_CTX ma_crypt_hash_new(unsigned int hash_type)
+static MA_HASH_CTX ma_crypt_hash_new(enum ma_hash_alg hash_alg)
 {
   _MA_HASH_CTX ctx;
   MA_HASH_TYPE evp_hash;
-  evp_hash= ma_crypt_hash_hashtype(hash_type);
+  evp_hash= ma_crypt_hash_hashtype(hash_alg);
 #ifdef HAVE_OPENSSL
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
   if (evp_hash && (ctx= EVP_MD_CTX_new()))
@@ -198,7 +198,7 @@ static void ma_crypt_hash_deinit(MA_HASH_CTX hash_ctx)
 
   @return                length of digest                         
  */
-size_t ma_hash_digest_size(unsigned int hash_alg)
+size_t ma_hash_digest_size(enum ma_hash_alg hash_alg)
 {
   switch (hash_alg) {
     case MA_HASH_MD5:
@@ -230,7 +230,7 @@ size_t ma_hash_digest_size(unsigned int hash_alg)
 
   @return                 void                         
  */
-void ma_hashv(unsigned int hash_alg,
+void ma_hashv(enum ma_hash_alg hash_alg,
               unsigned char *digest, ...)
 {
   va_list args;
@@ -260,7 +260,7 @@ void ma_hashv(unsigned int hash_alg,
 
   @return                void                         
  */
-void ma_hash(unsigned int hash_alg,
+void ma_hash(enum ma_hash_alg hash_alg,
              unsigned char *digest,
              const char *buffer,
              size_t length)

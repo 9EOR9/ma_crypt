@@ -59,7 +59,7 @@ typedef int MA_HASH_TYPE;
 typedef void *MA_HASH_CTX;
 
 /*! hash type enumeration */
-enum ma_hash_type {
+enum ma_hash_alg {
   MA_HASH_MD5,     /*!< MD5 hash (128-bit, 16 bytes)  */
   MA_HASH_SHA1,    /*!< SHA1 hash (160-bit, 20 bytes) */
   MA_HASH_SHA224,  /*!< SHA224 hash (224-bit, 28 bytes) */
@@ -74,11 +74,11 @@ enum ma_hash_type {
   @brief wrapper function to acquire a context for hash
   calculations
 
-  @param hash_alg [in]   hashing hash_alg
+  @param hash_alg [in]   hash algorithm
 
   @return                 hash context                         
  */
-MA_HASH_CTX ma_hash_new(unsigned int hash_alg);
+MA_HASH_CTX ma_hash_new(enum ma_hash_alg hash_alg);
 
 /**
   @brief hashes len bytes of data into the hash context.
@@ -128,30 +128,30 @@ void ma_hash_free(MA_HASH_CTX ctx);
   @return                 void                         
  */
 
-void ma_hashv(unsigned int hash_alg,
+void ma_hashv(enum ma_hash_alg hash_alg,
               unsigned char *digest, ...);
 /**
   @brief wrapper function to compute hash from message buffer
 
-  @param hash_alg [in]   hashing hash_alg
+  @param hash_alg [in]   hash algorithm
   @param digest [out]    computed hash digest
   @param buffer [in]     message buffer
   @param length [in]     length of message buffer
 
   @return                void                         
 */
-void ma_hash(unsigned int hash_alg,
+void ma_hash(enum ma_hash_alg hash_alg,
              unsigned char *digest,
              const char *buffer,
              size_t length);
 /**
   @brief return digest size for given hash algorithm
 
-  @param hash_alg [in]   hashing hash_alg
+  @param hash_alg [in]   hash algorithm
 
   @return                length of digest                         
  */
-size_t ma_hash_digest_size(unsigned int hash_alg);
+size_t ma_hash_digest_size(enum ma_hash_alg hash_alg);
 
 #ifdef __cplusplus
 }

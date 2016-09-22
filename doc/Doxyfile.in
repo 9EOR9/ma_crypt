@@ -5,3 +5,6 @@ STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@ \
 INPUT                  = @PROJECT_SOURCE_DIR@
 RECURSIVE              = YES
 USE_MDFILE_AS_MAINPAGE = @doxy_main_page@
+EXCLUDE_PATTERnS       = */doc/*
+EXCLUDE_PATTERnS       += */test/*
+
