@@ -600,7 +600,11 @@ int ma_crypt_random_bytes(unsigned char* buf, int num)
   yarrow256_init(&ctx, 0, NULL);
   yarrow256_random(&ctx, num, buf);
 #elif HAVE_OPENSSL
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
   RAND_METHOD *rand = RAND_SSLeay();
+#else
+  RAND_METHOD *rand = RAND_OpenSSL();
+#endif
   if (rand == NULL || rand->bytes(buf, num) != 1)
     return MA_CRYPT_ERND;
 #elif HAVE_SCHANNEL
