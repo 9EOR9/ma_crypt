@@ -53,6 +53,7 @@ enum ma_aes_mode {
 #define MA_CRYPT_EINVIV    4
 #define MA_CRYPT_EINVCIPH  5
 #define MA_CRYPT_BADDATA   6
+#define MA_CRYPT_ERND      7
 
 #include <ma_crypt_internal.h>
 

@@ -161,8 +161,8 @@ static void ma_crypt_hash_result(MA_HASH_CTX hash_ctx, unsigned char *digest)
   ctx->hash->digest(ctx->ctx, ctx->hash->digest_size, digest);
 #elif HAVE_SCHANNEL
   unsigned long len;
-  CryptGetHashParam(ctx->hHash, HP_HASHVAL, NULL, &length, 0);
-  CryptGetHashParam(ctx->hHash, HP_HASHVAL, digest, &length, 0);
+  CryptGetHashParam(ctx->hHash, HP_HASHVAL, NULL, &len, 0);
+  CryptGetHashParam(ctx->hHash, HP_HASHVAL, digest, &len, 0);
 #endif
 }
 
@@ -292,7 +292,7 @@ MA_HASH_CTX ma_hash_new(unsigned int hash_alg)
 
   @return               void
 */
-void ma_hash_input(MA_HASH_CTX ctx, const char *buffer, size_t len)
+void ma_hash_input(MA_HASH_CTX ctx, const unsigned char *buffer, size_t len)
 {
   ma_crypt_hash_input(ctx, buffer, len);
 }

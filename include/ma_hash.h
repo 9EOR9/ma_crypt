@@ -93,7 +93,7 @@ MA_HASH_CTX ma_hash_new(unsigned int hash_alg);
 */
 
 void ma_hash_input(MA_HASH_CTX ctx,
-                   const char *buffer,
+                   const unsigned char *buffer,
                    size_t len);
 
 /**

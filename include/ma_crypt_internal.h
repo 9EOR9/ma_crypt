@@ -32,9 +32,7 @@ typedef struct st_nettle_ctx {
   void *ctx;                           /* nettle cipher context */
   enum ma_aes_mode mode;               /* block cipher mode */
   int flags;                           /* encrypt, decrypt, nopad */
-  unsigned char pad_len;
   unsigned char src_len;
-  const unsigned char *src;
   const unsigned char *key;
   unsigned int key_len;
   const unsigned char *iv;
@@ -44,14 +42,36 @@ typedef struct st_nettle_ctx {
 #include <openssl/evp.h>
 #include <openssl/aes.h>
 #include <openssl/err.h>
+#include <openssl/rand.h>
 
 typedef struct st_openssl_ctx {
   EVP_CIPHER_CTX *ctx;
   enum ma_aes_mode mode;               /* block cipher mode */
   int flags;                           /* encrypt, decrypt, nopad */
-  unsigned char pad_len;
-  unsigned char src_len;
-  const unsigned char *src;
+  const unsigned char *key;
+  unsigned int key_len;
+  const unsigned char *iv;
+  unsigned int iv_len;
+} *_MA_CRYPT_CTX;
+#elif HAVE_SCHANNEL
+
+#include <windows.h>
+#include <bcrypt.h>
+
+#ifndef AES_BLOCK_SIZE
+#define AES_BLOCK_SIZE 16
+#endif
+#define __attribute__(a)
+typedef struct st_schannel_ctx {
+  BCRYPT_ALG_HANDLE AlgHdl;
+  BCRYPT_KEY_HANDLE KeyHdl;
+  BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO authinfo;
+  PBYTE pIv;
+  PBYTE pKey;
+  DWORD blocklen;
+  unsigned char authtag[AES_BLOCK_SIZE];
+  enum ma_aes_mode mode;               /* block cipher mode */
+  int flags;                           /* encrypt, decrypt, nopad */
   const unsigned char *key;
   unsigned int key_len;
   const unsigned char *iv;
